@@ -1,0 +1,23 @@
+{
+  "name": "custom-select",
+  "version": "1.0.0",
+  "description": "Лёгкая JS-библиотека для кастомных селектов",
+  "main": "dist/custom-select.js",
+  "scripts": {
+    "build:prod": "webpack --env mode=production",
+    "build:dev": "webpack --env mode=development",
+    "dev": "webpack serve --env mode=development --open "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^7.0.4",
+    "html-webpack-plugin": "^5.6.5",
+    "mini-css-extract-plugin": "^2.9.4",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
