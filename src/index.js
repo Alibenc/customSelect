@@ -118,9 +118,12 @@ export { CustomSelect };
 
 const selectDynamic = new CustomSelect({
     selector: '#country',
+    // multi: true,
     options: [
-        { label: 'Россия', key: 'ru' },
-        { label: 'Беларусь', key: 'be' }
+        { label: 'Россия', key: 'ru', data: {test: 'true'} },
+        { label: 'Беларусь', key: 'be', active: true },
+        { label: 'Казахстан', key: 'kz', active: true, data: {test: 'true'} },
+        { label: 'Великобритания', key: 'uk', active: true }
     ],
     events: {
         onChange(options) {
@@ -131,25 +134,17 @@ const selectDynamic = new CustomSelect({
         {
             when: ['ru'],
             create: {
-                mount: parent => {
-                    const el = document.createElement('div');
-                    parent.appendChild(el);
-                    return el;
-                },
                 config: {
                     options: [
                         { label: 'Москва', key: 'msk' },
                         { label: 'СПб', key: 'spb' }
                     ],
+                    allowCustom: true,
+                    searchable: true,
                     dynamic: [
                         {
                             when: ['msk'],
                             create: {
-                                mount: parent => {
-                                    const el = document.createElement('div');
-                                    parent.appendChild(el);
-                                    return el;
-                                },
                                 config: {
                                     options: [
                                         { label: 'Центр', key: 'center' }
@@ -158,6 +153,17 @@ const selectDynamic = new CustomSelect({
                             }
                         }
                     ]
+                }
+            }
+        },
+        {
+            when: ['ru'],
+            create: {
+                config: {
+                    options: [
+                        { label: 'test', key: 'sdfgh' },
+                        { label: 'test2', key: 'sdfgh' }
+                    ],
                 }
             }
         }

@@ -11,7 +11,13 @@
 }
 
 /* container */
-.cs {
+/*.cs {*/
+/*    position: relative;*/
+/*    font-size: var(--cs-font-size);*/
+/*    color: var(--cs-text);*/
+/*}*/
+
+.cs-inner {
     position: relative;
     font-size: var(--cs-font-size);
     color: var(--cs-text);
@@ -31,7 +37,7 @@
     gap: 6px;
 }
 
-.cs-open .cs-value {
+.cs-inner.cs-open .cs-value {
     border-color: var(--cs-border-focus);
 }
 
@@ -77,7 +83,7 @@
     z-index: 1000;
 }
 
-.cs-open .cs-dropdown {
+.cs-inner.cs-open .cs-dropdown {
     display: block;
 }
 

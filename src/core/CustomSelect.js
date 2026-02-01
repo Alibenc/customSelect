@@ -1,10 +1,9 @@
 import SelectRenderer from './SelectRenderer.js';
 import SelectEvents from './SelectEvents.js';
 import SelectConfig from './SelectConfig.js';
-import SelectDynamic from './SelectDinamic/SelectDynamic.js';
-import EventEmitter from "./SelectDinamic/EventEmitter";
+import SelectDynamic from './SelectDynamic/SelectDynamic.js';
 
-import { findOptionById, normalizeOptions, normalizeValue } from './SelectUtils.js';
+import {_resolveContainer, findOptionById, normalizeOptions, normalizeValue} from './SelectUtils.js';
 
 import '../styles/style.css';
 
@@ -12,14 +11,24 @@ export class CustomSelect {
     constructor(config) {
         this.config = SelectConfig.normalize(config);
 
-        this.container = document.querySelector(this.config.selector);
+        this.container = _resolveContainer(this.config.selector);
+
+        console.log(this.container)
 
         if (!this.container) {
             throw new Error('CustomSelect: container not found');
         }
 
+        // this.inner = this.container.querySelector('.cs-inner');
+        //
+        // const test = this.container;
+        //
+        //
+        // console.log(this.inner, test.querySelector('.cs-inner'));
+
         this.options = normalizeOptions(this.config.options || []);
         this.selected = [];
+        this._initValueFromOptions();
 
         this.renderOption =
             this.config.renderers?.renderOption || (opt => opt.label);
@@ -164,12 +173,24 @@ export class CustomSelect {
         this.emit('onChange', this.getValue());
     }
 
+    _initValueFromOptions() {
+        const activeOptions = this.options.filter(o => o.active);
+
+        if (!activeOptions.length) return;
+
+        this.selected = this.config.multi
+            ? activeOptions
+            : [activeOptions[0]];
+
+        this.options.forEach(o => delete o.active);
+    }
+
     setOpenState(isOpen, source = 'programmatic') {
-        const opened = this.container.classList.contains('cs-open');
+        const opened = this.inner.classList.contains('cs-open');
 
         if (opened === isOpen) return;
 
-        this.container.classList.toggle('cs-open', isOpen);
+        this.inner.classList.toggle('cs-open', isOpen);
 
         this.emit(isOpen ? 'onOpen' : 'onClose', { source });
     }
@@ -184,9 +205,13 @@ export class CustomSelect {
 
     toggle(source) {
         this.setOpenState(
-            !this.container.classList.contains('cs-open'),
+            !this.inner.classList.contains('cs-open'),
             source
         );
+    }
+
+    setInner(el) {
+        this.inner = el;
     }
 
     destroy() {

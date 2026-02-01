@@ -6,7 +6,23 @@ export default class SelectRenderer {
     renderBase() {
         const { container, config } = this.select;
 
-        container.innerHTML = `
+        // container.innerHTML = `
+        //     <div class="cs-inner">
+        //         <div class="cs-value ${config.multi ? 'cs-multi' : ''}">
+        //             <p class="cs-placeholder">${config.placeholder || ''}</p>
+        //         </div>
+        //         <div class="cs-dropdown">
+        //             ${config.searchable ? `<input type="text" class="cs-search">` : ''}
+        //         </div>
+        //     </div>
+        // `;
+
+        container.innerHTML = '';
+
+        const inner = document.createElement('div');
+        inner.className = 'cs-inner';
+
+        inner.innerHTML = `
             <div class="cs-value ${config.multi ? 'cs-multi' : ''}">
                 <p class="cs-placeholder">${config.placeholder || ''}</p>
             </div>
@@ -14,6 +30,9 @@ export default class SelectRenderer {
                 ${config.searchable ? `<input type="text" class="cs-search">` : ''}
             </div>
         `;
+
+        container.appendChild(inner);
+        this.select.setInner(inner);
 
         this.valueEl = container.querySelector('.cs-value');
         this.dropdownEl = container.querySelector('.cs-dropdown');
@@ -32,6 +51,14 @@ export default class SelectRenderer {
             btn.type = 'button';
             btn.className = 'cs-option';
             btn.dataset.id = option.id;
+
+
+            if (option.data && typeof option.data === 'object') {
+                Object.entries(option.data).forEach(([key, value]) => {
+                    btn.dataset[key] = value;
+                });
+            }
+
             btn.innerHTML = this.select.renderOption(option);
             this.dropdownEl.appendChild(btn);
         });

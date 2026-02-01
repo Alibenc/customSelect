@@ -19,7 +19,7 @@ class OutsideClickManager {
 
     static handleClick = (e) => {
         this.selects.forEach(select => {
-            if (!select.container.contains(e.target.closest('.cs'))) {
+            if (!select.container.contains(e.target.closest('.cs-inner'))) {
                 select.close('outside');
             }
         });

@@ -23,7 +23,12 @@ export const normalizeOptions = (options, usedIds = new Set()) => {
 
         usedIds.add(id);
 
-        return { ...option, id,  key: option.key ?? null, };
+        return {
+            ...option,
+            id,
+            key: option.key ?? null,
+            active: Boolean(option.active),
+        };
     });
 };
 
@@ -36,6 +41,21 @@ export const normalizeValue = (value) => {
 
     return [value];
 }
+
+export const _resolveContainer = (selector) => {
+    if (selector instanceof HTMLElement) return selector;
+
+    if (typeof selector === 'string') {
+        const el = document.querySelector(selector);
+        if (!el) {
+            throw new Error(`CustomSelect: element not found for selector "${selector}"`);
+        }
+        return el;
+    }
+
+    throw new Error('CustomSelect: selector must be selector string or HTMLElement');
+}
+
 //
 // export const normalizeValue = (value, multi) => {
 //     if (multi) {
