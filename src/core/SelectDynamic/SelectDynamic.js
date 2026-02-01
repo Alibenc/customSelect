@@ -19,7 +19,6 @@ export default class SelectDynamic {
 
     bind() {
         this.emitter.on('change', ({ value }) => this.handleChange(value))
-        console.log(this.select)
     }
 
     handleChange(selectedOptions) {

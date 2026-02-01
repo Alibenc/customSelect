@@ -1,5 +1,5 @@
 import { CustomSelect } from './core/CustomSelect.js';
-export { CustomSelect };
+export default CustomSelect;
 
 
 // здесь тестируем инициализацию в режиме разработки, перед билдом - удалить
@@ -119,6 +119,8 @@ export { CustomSelect };
 const selectDynamic = new CustomSelect({
     selector: '#country',
     // multi: true,
+    // searchable: true,
+    // allowCustom: true,
     options: [
         { label: 'Россия', key: 'ru', data: {test: 'true'} },
         { label: 'Беларусь', key: 'be', active: true },
@@ -126,9 +128,30 @@ const selectDynamic = new CustomSelect({
         { label: 'Великобритания', key: 'uk', active: true }
     ],
     events: {
-        onChange(options) {
-            console.log('onChange:', options);
-        },
+        // onChange(options) {
+        //     console.log('onChange:', options);
+        // },
+        // onSelect(option) {
+        //     console.log('onSelect:', option);
+        // },
+        // onDeselect(option) {
+        //     console.log('onDeselect:', option);
+        // },
+        // onFocus() {
+        //     console.log('onFocus');
+        // },
+        // onBlur() {
+        //     console.log('onBlur');
+        // }
+        // onOpen() {
+        //     console.log('onOpen');
+        // },
+        // onClose() {
+        //     console.log('onClose');
+        // },
+        // onCustomOption(option) {
+        //     console.log('onCustomOption:', option);
+        // },
     },
     dynamic: [
         {

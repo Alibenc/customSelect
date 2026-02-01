@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+
+    <div id="country"></div>
+
+    <script src="./custom-select.js"></script>
+    <script>
+        const selectDynamic = new CustomSelect({
+            selector: '#country',
+            options: [
+                { label: 'Россия', key: 'ru', data: {test: 'true'} },
+                { label: 'Беларусь', key: 'be', active: true },
+                { label: 'Казахстан', key: 'kz', active: true, data: {test: 'true'} },
+                { label: 'Великобритания', key: 'uk', active: true }
+            ],
+            events: {
+                onChange(options) {
+                    console.log('onChange:', options);
+                },
+            },
+            dynamic: [
+                {
+                    when: ['ru'],
+                    create: {
+                        config: {
+                            options: [
+                                { label: 'Москва', key: 'msk' },
+                                { label: 'СПб', key: 'spb' }
+                            ],
+                            allowCustom: true,
+                            searchable: true,
+                            dynamic: [
+                                {
+                                    when: ['msk'],
+                                    create: {
+                                        config: {
+                                            options: [
+                                                { label: 'Центр', key: 'center' }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    when: ['ru'],
+                    create: {
+                        config: {
+                            options: [
+                                { label: 'test', key: 'sdfgh' },
+                                { label: 'test2', key: 'sdfgh' }
+                            ],
+                        }
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+</html>

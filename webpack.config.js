@@ -48,10 +48,14 @@ module.exports = (env) => {
             filename: 'custom-select.js',
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/',
-            library: {
-                name: 'CustomSelect',
-                type: 'umd'
-            },
+            // library: {
+            //     name: 'CustomSelect',
+            //     type: 'umd'
+            // },
+            // globalObject: 'this',
+            library: 'CustomSelect',
+            libraryTarget: 'umd',
+            libraryExport: 'default',
             globalObject: 'this',
             clean: true
         },

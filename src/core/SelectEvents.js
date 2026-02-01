@@ -43,7 +43,6 @@ export default class SelectEvents {
             if (!option) return;
 
             this.select.toggleOption(option.dataset.id);
-            // this.select.selectOption(option.dataset.id);
             this.select.close();
         });
 

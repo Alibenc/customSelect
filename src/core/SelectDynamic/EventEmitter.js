@@ -19,8 +19,6 @@ export default class EventEmitter {
     }
 
     emit(event, payload) {
-        console.log(event, this.listeners)
-        console.log(this.listeners[event])
         if (!this.listeners[event]) return;
 
         this.listeners[event].forEach(handler => handler(payload));

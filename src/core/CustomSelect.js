@@ -193,6 +193,7 @@ export class CustomSelect {
         this.inner.classList.toggle('cs-open', isOpen);
 
         this.emit(isOpen ? 'onOpen' : 'onClose', { source });
+        this.emit(isOpen ? 'onFocus' : 'onBlur', { source });
     }
 
     open(source) {
