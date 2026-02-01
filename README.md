@@ -61,6 +61,29 @@ new CustomSelect({
 });
 ```
 
+или
+
+### JSON
+
+```json
+
+{
+    "selector": "#country",
+    "placeholder": "Выберите страну",
+    "options": [
+        {
+            "label": "Россия",
+            "key": "ru",
+            "data": { "test": "true" }
+        }
+    ],
+    "events": {
+        "onChange": "function(options) { console.log('onChange:', options); }"
+    }
+}
+
+```
+
 ---
 
 ## ⚙️ Конфигурация
