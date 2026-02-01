@@ -10,7 +10,6 @@ import '../assets/styles/style.css';
 export class CustomSelect {
     constructor(config) {
         this.config = SelectConfig.normalize(config);
-        console.log(this.config)
 
         this.container = _resolveContainer(this.config.selector);
 
@@ -56,8 +55,6 @@ export class CustomSelect {
             this.emit('onSelect', option);
         }
 
-
-        // this.emit('onChange', this.getValue());
         this._emitChange();
         this.renderer.renderSelected();
     }
@@ -68,7 +65,6 @@ export class CustomSelect {
 
         this.selected = this.selected.filter(o => o.id !== id);
         this.emit('onDeselect', option);
-        // this.emit('onChange', this.getValue());
         this._emitChange();
         this.renderer.renderSelected();
     }
@@ -116,14 +112,12 @@ export class CustomSelect {
             this.selected = normalized.slice(0, 1);
         }
 
-        // this.emit('onChange', this.getValue());
         this._emitChange();
         this.renderer.renderSelected();
     }
 
     clear() {
         this.selected = [];
-        // this.emit('onChange', this.getValue());
         this._emitChange();
         this.renderer.renderSelected();
     }
@@ -144,10 +138,6 @@ export class CustomSelect {
         this.renderer.renderOptions(this.options);
         this.renderer.renderSelected();
     }
-
-    // destroy() {
-    //     this.container.innerHTML = '';
-    // }
 
     emit(name, payload) {
         const fn = this.config.events?.[name];

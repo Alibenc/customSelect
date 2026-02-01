@@ -1,13 +1,3 @@
-// export const generateId = () => {
-//     return Date.now() + Math.floor(Math.random() * 1000);
-// }
-//
-// export const filterOptions = (options, query) => {
-//     return options.filter(o => o.label.toLowerCase().includes(query.toLowerCase()));
-// }
-
-// export const generateId = () => Date.now() + Math.floor(Math.random() * 1000);
-
 export const generateId = (() => {
     let counter = 0;
     return () => String(Date.now() + counter++);
@@ -55,14 +45,6 @@ export const _resolveContainer = (selector) => {
 
     throw new Error('CustomSelect: selector must be selector string or HTMLElement');
 }
-
-//
-// export const normalizeValue = (value, multi) => {
-//     if (multi) {
-//         return Array.isArray(value) ? value : value ? [value] : [];
-//     }
-//     return value ?? null;
-// };
 
 export const findOptionById = (options, id) => options.find(opt => opt.id === id);
 

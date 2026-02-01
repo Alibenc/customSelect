@@ -304,3 +304,5 @@ const jsonDynamicConfig = `{
 }`
 
 const jsonDynamicSelect = new CustomSelect(jsonDynamicConfig);
+
+console.log(jsonDynamicSelect)
