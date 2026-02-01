@@ -1,9 +1,29 @@
+/**
+ * Простейший EventEmitter для внутреннего обмена событиями.
+ * Не связан с DOM и предназначен для использования внутри библиотеки.
+ *
+ * @class
+ */
 export default class EventEmitter {
     constructor() {
+        /**
+         * Хранилище обработчиков событий
+         * key — имя события
+         * value — массив обработчиков
+         *
+         * @type {Object<string, Function[]>}
+         */
         this.listeners = {};
     }
 
-    on(event, handler) {
+    /**
+     * Подписка на событие
+     *
+     * @param {string} event - Имя события
+     * @param {Function} handler - Функция-обработчик
+     * @returns {void}
+     */
+     on(event, handler) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
@@ -11,20 +31,16 @@ export default class EventEmitter {
         this.listeners[event].push(handler);
     }
 
-    off(event, handler) {
-        if (!this.listeners[event]) return;
-
-        this.listeners[event] =
-            this.listeners[event].filter(h => h !== handler);
-    }
-
-    emit(event, payload) {
+    /**
+     * Генерация события
+     *
+     * @param {string} event - Имя события
+     * @param {*} [payload] - Данные события
+     * @returns {void}
+     */
+     emit(event, payload) {
         if (!this.listeners[event]) return;
 
         this.listeners[event].forEach(handler => handler(payload));
-    }
-
-    clear() {
-        this.listeners = {};
     }
 }

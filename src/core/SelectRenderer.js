@@ -1,8 +1,32 @@
+/**
+ * Отвечает за рендеринг DOM-структуры селекта:
+ * - базовая разметка
+ * - список опций
+ * - выбранные значения
+ * - визуальное состояние активных опций
+ *
+ * @class
+ */
 export default class SelectRenderer {
+    /**
+     * @param {CustomSelect} select - Экземпляр CustomSelect
+     */
     constructor(select) {
+        /**
+         * Ссылка на родительский CustomSelect
+         * @type {CustomSelect}
+         */
         this.select = select;
     }
 
+    /**
+     * Рендерит базовую HTML-структуру селекта
+     * (value, dropdown, search, arrow)
+     *
+     * Вызывается один раз при инициализации
+     *
+     * @returns {void}
+     */
     renderBase() {
         const { container, config } = this.select;
 
@@ -38,11 +62,20 @@ export default class SelectRenderer {
         container.appendChild(inner);
         this.select.setInner(inner);
 
+        /**
+         * DOM-элементы, используемые в SelectEvents
+         */
         this.valueEl = inner.querySelector('.cs-value');
         this.dropdownEl = inner.querySelector('.cs-dropdown');
         this.searchEl = inner.querySelector('.cs-search');
     }
 
+    /**
+     * Рендерит список опций в dropdown
+     *
+     * @param {Array<Object>} options - Список опций для отображения
+     * @returns {void}
+     */
     renderOptions(options) {
         const { selected } = this.select;
 
@@ -56,7 +89,7 @@ export default class SelectRenderer {
             btn.className = this.getClass('options');
             btn.dataset.id = option.id;
 
-
+            // дополнительные data-атрибуты опции
             if (option.data && typeof option.data === 'object') {
                 Object.entries(option.data).forEach(([key, value]) => {
                     btn.dataset[key] = value;
@@ -70,6 +103,11 @@ export default class SelectRenderer {
         this.highlightActiveOptions(selected);
     }
 
+    /**
+     * Рендерит выбранные значения в value-блоке
+     *
+     * @returns {void}
+     */
     renderSelected() {
         const { selected, config } = this.select;
 
@@ -93,13 +131,20 @@ export default class SelectRenderer {
                 ${this.select.renderSelectedOption(option)}
             `;
 
-            // можно добавить крестики, для удаления активного опшиона в мульти режиме:
+            // можно добавить крестики, для удаления активного опшиона
+            // не открывая дропдаун в мульти режиме:
             // ${config.multi ? `<button type="button" class="cs-remove">×</button>` : ''}
 
             this.valueEl.appendChild(el);
         });
     }
 
+    /**
+     * Подсвечивает активные опции в dropdown
+     *
+     * @param {Array<Object>} selected - Выбранные опции
+     * @returns {void}
+     */
     highlightActiveOptions(selected) {
         const options = this.select.container.querySelectorAll('.cs-option');
 
@@ -116,6 +161,16 @@ export default class SelectRenderer {
         })
     }
 
+    /**
+     * Возвращает CSS-класс с учетом:
+     * - дефолтного класса
+     * - кастомного класса из this.select.config.classes
+     * - дополнительного класса
+     *
+     * @param {string} name - Ключ класса
+     * @param {string} [extra] - Дополнительный класс
+     * @returns {string}
+     */
     getClass(name, extra = '') {
         const defaults = {
             inner: 'cs-inner',

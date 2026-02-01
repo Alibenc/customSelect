@@ -8,7 +8,7 @@
     "build:dev": "webpack --env mode=development",
     "dev": "webpack serve --env mode=development --open "
   },
-  "author": "",
+  "author": "Promo-link/Ivan Krapivin (Alibenc)",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.8.1",
