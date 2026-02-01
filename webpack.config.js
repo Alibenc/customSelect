@@ -77,6 +77,13 @@ module.exports = (env) => {
         ],
         module: {
             rules: [
+                {
+                    test: /\.(woff2?|ttf|otf|eot)$/i,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'fonts/[name][ext]'
+                    }
+                },
                 { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader'] }
             ]
         },

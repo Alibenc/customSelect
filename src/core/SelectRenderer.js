@@ -6,28 +6,22 @@ export default class SelectRenderer {
     renderBase() {
         const { container, config } = this.select;
 
-        // container.innerHTML = `
-        //     <div class="cs-inner">
-        //         <div class="cs-value ${config.multi ? 'cs-multi' : ''}">
-        //             <p class="cs-placeholder">${config.placeholder || ''}</p>
-        //         </div>
-        //         <div class="cs-dropdown">
-        //             ${config.searchable ? `<input type="text" class="cs-search">` : ''}
-        //         </div>
-        //     </div>
-        // `;
-
         container.innerHTML = '';
 
         const inner = document.createElement('div');
         inner.className = 'cs-inner';
 
         inner.innerHTML = `
+            <div class="cs-arrow"></div>
             <div class="cs-value ${config.multi ? 'cs-multi' : ''}">
                 <p class="cs-placeholder">${config.placeholder || ''}</p>
             </div>
             <div class="cs-dropdown">
-                ${config.searchable ? `<input type="text" class="cs-search">` : ''}
+                ${config.searchable ? 
+                    `<input type="text" class="cs-search" name="cs-search">` 
+                        : 
+                    ''
+                }
             </div>
         `;
 
@@ -87,8 +81,10 @@ export default class SelectRenderer {
 
             el.innerHTML = `
                 ${this.select.renderSelectedOption(option)}
-                ${config.multi ? `<button type="button" class="cs-remove">×</button>` : ''}
             `;
+
+            // можно добавить крестики, для удаления активного опшиона в мульти режиме:
+            // ${config.multi ? `<button type="button" class="cs-remove">×</button>` : ''}
 
             this.valueEl.appendChild(el);
         });

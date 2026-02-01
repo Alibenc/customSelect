@@ -5,7 +5,7 @@ import SelectDynamic from './SelectDynamic/SelectDynamic.js';
 
 import {_resolveContainer, findOptionById, normalizeOptions, normalizeValue} from './SelectUtils.js';
 
-import '../styles/style.css';
+import '../assets/styles/style.css';
 
 export class CustomSelect {
     constructor(config) {
@@ -13,18 +13,9 @@ export class CustomSelect {
 
         this.container = _resolveContainer(this.config.selector);
 
-        console.log(this.container)
-
         if (!this.container) {
             throw new Error('CustomSelect: container not found');
         }
-
-        // this.inner = this.container.querySelector('.cs-inner');
-        //
-        // const test = this.container;
-        //
-        //
-        // console.log(this.inner, test.querySelector('.cs-inner'));
 
         this.options = normalizeOptions(this.config.options || []);
         this.selected = [];
@@ -39,7 +30,6 @@ export class CustomSelect {
         this.renderer = new SelectRenderer(this);
         this.events = new SelectEvents(this);
         this.dynamic = new SelectDynamic(this);
-        // this.emitter = new EventEmitter();
 
         this.init();
     }

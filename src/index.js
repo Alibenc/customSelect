@@ -118,14 +118,15 @@ export default CustomSelect;
 
 const selectDynamic = new CustomSelect({
     selector: '#country',
-    // multi: true,
-    // searchable: true,
+    multi: true,
+    searchable: true,
     // allowCustom: true,
+    placeholder: 'Выберите страну',
     options: [
         { label: 'Россия', key: 'ru', data: {test: 'true'} },
-        { label: 'Беларусь', key: 'be', active: true },
-        { label: 'Казахстан', key: 'kz', active: true, data: {test: 'true'} },
-        { label: 'Великобритания', key: 'uk', active: true }
+        { label: 'Беларусь', key: 'be' },
+        { label: 'Казахстан', key: 'kz', data: {test: 'true'} },
+        { label: 'Великобритания', key: 'uk', }
     ],
     events: {
         // onChange(options) {
