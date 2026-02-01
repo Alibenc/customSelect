@@ -10,6 +10,7 @@ import '../assets/styles/style.css';
 export class CustomSelect {
     constructor(config) {
         this.config = SelectConfig.normalize(config);
+        console.log(this.config)
 
         this.container = _resolveContainer(this.config.selector);
 

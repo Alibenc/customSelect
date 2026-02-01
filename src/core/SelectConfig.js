@@ -18,15 +18,23 @@ export default class SelectConfig {
         this.reviveFunctions(parsed.events);
         this.reviveFunctions(parsed.renderers);
 
+        if (Array.isArray(parsed.dynamic)) {
+            this.reviveFunctions(parsed.dynamic);
+        }
+
         return parsed;
     }
 
     static reviveFunctions(obj) {
-        if (!obj) return;
+        if (!obj || typeof obj !== 'object') return;
 
         Object.keys(obj).forEach(key => {
-            if (typeof obj[key] === 'string') {
-                obj[key] = new Function(`return ${obj[key]}`)();
+            const value = obj[key];
+
+            if (typeof value === 'string' && value.trim().startsWith('function')) {
+                obj[key] = new Function(`return (${value})`)();
+            } else if (typeof value === 'object') {
+                this.reviveFunctions(value);
             }
         });
     }
