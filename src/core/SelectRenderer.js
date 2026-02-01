@@ -9,18 +9,28 @@ export default class SelectRenderer {
         container.innerHTML = '';
 
         const inner = document.createElement('div');
-        inner.className = 'cs-inner';
+        inner.className = this.getClass('inner');
 
         inner.innerHTML = `
-            <div class="cs-arrow"></div>
-            <div class="cs-value ${config.multi ? 'cs-multi' : ''}">
-                <p class="cs-placeholder">${config.placeholder || ''}</p>
+            <div class="${this.getClass('arrow')}"></div>
+            <div class="${this.getClass(
+                    'value',
+                    config.multi ? 'cs-multi' : ''
+                )}">
+              <p class="${this.getClass('placeholder')}">
+                ${config.placeholder || ''}
+              </p>
             </div>
-            <div class="cs-dropdown">
-                ${config.searchable ? 
-                    `<input type="text" class="cs-search" name="cs-search">` 
-                        : 
-                    ''
+        
+            <div class="${this.getClass('dropdown')}">
+              ${
+                    config.searchable
+                        ? `<input 
+                        type="text" 
+                        class="${this.getClass('search')}" 
+                        name="cs-search"
+                    >`
+                        : ''
                 }
             </div>
         `;
@@ -28,9 +38,9 @@ export default class SelectRenderer {
         container.appendChild(inner);
         this.select.setInner(inner);
 
-        this.valueEl = container.querySelector('.cs-value');
-        this.dropdownEl = container.querySelector('.cs-dropdown');
-        this.searchEl = container.querySelector('.cs-search');
+        this.valueEl = inner.querySelector('.cs-value');
+        this.dropdownEl = inner.querySelector('.cs-dropdown');
+        this.searchEl = inner.querySelector('.cs-search');
     }
 
     renderOptions(options) {
@@ -43,7 +53,7 @@ export default class SelectRenderer {
         options.forEach(option => {
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'cs-option';
+            btn.className = this.getClass('options');
             btn.dataset.id = option.id;
 
 
@@ -69,14 +79,14 @@ export default class SelectRenderer {
 
         if (!selected.length) {
             this.valueEl.innerHTML = `
-                <p class="cs-placeholder">${config.placeholder || ''}</p>
+                <p class="${this.getClass('placeholder')}">${config.placeholder || ''}</p>
             `;
             return;
         }
 
         selected.forEach(option => {
             const el = document.createElement('span');
-            el.className = 'cs-selected';
+            el.className = this.getClass('selected');
             el.dataset.id = option.id;
 
             el.innerHTML = `
@@ -104,5 +114,29 @@ export default class SelectRenderer {
         selectedOptions.forEach(option => {
             option.classList.add('cs-option--selected');
         })
+    }
+
+    getClass(name, extra = '') {
+        const defaults = {
+            inner: 'cs-inner',
+            value: 'cs-value',
+            dropdown: 'cs-dropdown',
+            placeholder: 'cs-placeholder',
+            arrow: 'cs-arrow',
+            search: 'cs-search',
+            selected: 'cs-selected',
+            options: 'cs-option'
+        };
+
+        const custom = this.select.config.classes?.[name];
+
+        const normalize = v =>
+            Array.isArray(v) ? v.join(' ') : v || '';
+
+        return [
+            defaults[name],
+            normalize(custom),
+            extra
+        ].filter(Boolean).join(' ');
     }
 }

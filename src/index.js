@@ -128,6 +128,16 @@ const selectDynamic = new CustomSelect({
         { label: 'Казахстан', key: 'kz', data: {test: 'true'} },
         { label: 'Великобритания', key: 'uk', }
     ],
+    classes: {
+        inner: 'my-inner',
+        value: ['my-value', 'rounded'],
+        dropdown: 'my-dropdown',
+        placeholder: 'my-placeholder',
+        arrow: 'my-arrow',
+        search: 'my-search',
+        selected: 'my-selected',
+        options: 'my-option',
+    },
     events: {
         // onChange(options) {
         //     console.log('onChange:', options);
